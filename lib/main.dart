@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_tuto/cubit/counter_cubit.dart';
-import 'package:flutter_bloc_tuto/cubit/happy_cubit.dart';
-import 'package:flutter_bloc_tuto/screens/home.dart';
-import 'navigator/routes.dart' as navigator;
+import 'package:flutter_bloc_tuto/logic/cubits/counter/counter_cubit.dart';
+import 'package:flutter_bloc_tuto/presentation/screens/home.dart';
+import 'package:flutter_bloc_tuto/presentation/navigator/routes.dart'
+    as navigator;
 
 void main() {
   runApp(const MyApp());
@@ -14,15 +14,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<CounterCubit>(
-          create: (context) => CounterCubit(),
-        ),
-        BlocProvider<HappyCubit>(
-          create: (context) => HappyCubit(),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => CounterCubit(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

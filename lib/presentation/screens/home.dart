@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_tuto/cubit/counter_cubit.dart';
-import 'package:flutter_bloc_tuto/cubit/happy_cubit.dart';
+import 'package:flutter_bloc_tuto/logic/cubits/counter/counter_cubit.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -13,14 +12,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,18 +49,12 @@ class _HomeState extends State<Home> {
                   );
                 },
               ),
-              BlocBuilder<HappyCubit, bool>(
-                builder: (context, state) {
-                  return Text(state.toString());
-                },
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   FloatingActionButton(
                     onPressed: () {
                       BlocProvider.of<CounterCubit>(context).decrement();
-                      BlocProvider.of<HappyCubit>(context).sad();
                     },
                     tooltip: 'DECREMENT',
                     child: const Icon(Icons.remove),
@@ -77,7 +62,6 @@ class _HomeState extends State<Home> {
                   FloatingActionButton(
                       onPressed: () {
                         BlocProvider.of<CounterCubit>(context).increment();
-                        BlocProvider.of<HappyCubit>(context).happy();
                       },
                       tooltip: 'INCREMENT',
                       child: const Icon(Icons.add)),
@@ -86,11 +70,6 @@ class _HomeState extends State<Home> {
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
