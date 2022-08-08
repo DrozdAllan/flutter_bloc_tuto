@@ -9,11 +9,13 @@ class InternetCubit extends Cubit<InternetState> {
   final Connectivity connectivity;
   StreamSubscription? connectivityStreamSubscription;
 
-  InternetCubit(
-      {required this.connectivity, this.connectivityStreamSubscription})
+  InternetCubit({required this.connectivity, this.connectivityStreamSubscription})
       : super(InternetLoading()) {
-    connectivityStreamSubscription =
-        connectivity.onConnectivityChanged.listen((connectivityResult) {
+    monitorInternetConnection();
+  }
+
+  StreamSubscription<ConnectivityResult> monitorInternetConnection() {
+    return connectivityStreamSubscription = connectivity.onConnectivityChanged.listen((connectivityResult) {
       if (connectivityResult == ConnectivityResult.wifi) {
         emitInternetConnected(ConnectionType.wifi);
       } else if (connectivityResult == ConnectivityResult.mobile) {
